@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Ekaterina Baidukova](https://up.htmlacademy.ru/javascript-individual/1/user/471547).
-* Наставник: `Неизвестно`.
+* Наставник: `Мария Филиппова`.
 
 ---
 
