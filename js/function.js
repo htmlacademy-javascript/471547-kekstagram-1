@@ -48,7 +48,7 @@ console.log(addPadString('1dgsdsddgsg', 0, 19));
 
 /*Задание для проекта «Кекстаграм»: функция для проверки длины строки. Она принимает строку, которую нужно проверить, и максимальную длину и возвращает true, если строка меньше или равна указанной длине, и false, если строка длиннее.*/
 
-const StringLength = (string, length) => string.length <= length;
+const StringLength = (string, lengthString) => string.length <= lengthString;
 
 // eslint-disable-next-line no-console
 console.log(StringLength('d', 5));
