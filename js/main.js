@@ -55,17 +55,17 @@ const AvatarNumber = {
   MAX: 6
 };
 
-const LikesAmount = {
+const Like = {
   MIN: 15,
   MAX: 200
 };
 
-const CommentsAmount = {
+const Comment = {
   MIN: 1,
   MAX: 20
 };
 
-const imagesAmount = 25;
+const ImagesAmount = 25;
 
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -85,17 +85,17 @@ const createComment = () => ({
 
 const createImage = (_, index) => {
   const id = index + 1;
-  const commentsAmount = getRandomInteger(CommentsAmount.MIN, CommentsAmount.MAX);
+  const commentsAmount = getRandomInteger(Comment.MIN, Comment.MAX);
   return {
     id: id,
     url: `photos/${id}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInteger(LikesAmount.MIN, LikesAmount.MAX),
+    likes: getRandomInteger(Like.MIN, Like.MAX),
     comments: Array.from({length: commentsAmount}, createComment)
   };
 };
 
-const imagesDescriptions = Array.from({length: imagesAmount}, createImage);
+const images = Array.from({length: ImagesAmount}, createImage);
 
 // eslint-disable-next-line no-console
-console.log(imagesDescriptions);
+console.log(images);
