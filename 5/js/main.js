@@ -45,6 +45,28 @@ const DESCRIPTIONS = [
   'Кекс бы оценил...'
 ];
 
+const CommentId = {
+  MIN: 1,
+  MAX: 1000
+};
+
+const AvatarNumber = {
+  MIN: 1,
+  MAX: 6
+};
+
+const LikesAmount = {
+  MIN: 15,
+  MAX: 200
+};
+
+const CommentsAmount = {
+  MIN: 1,
+  MAX: 20
+};
+
+const imagesAmount = 25;
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -55,22 +77,25 @@ const getRandomInteger = (a, b) => {
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const createComment = () => ({
-  id: getRandomInteger(0, 1000),
-  avatar: `img/avatar- ${getRandomInteger(0, 7)} + .svg`,
+  id: getRandomInteger(CommentId.MIN, CommentId.MAX),
+  avatar: `img/avatar-${getRandomInteger(AvatarNumber.MIN, AvatarNumber.MAX)}.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES)
 });
 
-const randomComment = Array.from({length: 1}, createComment);
+const createImage = (_, index) => {
+  const id = index + 1;
+  const commentsAmount = getRandomInteger(CommentsAmount.MIN, CommentsAmount.MAX);
+  return {
+    id: id,
+    url: `photos/${id}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInteger(LikesAmount.MIN, LikesAmount.MAX),
+    comments: Array.from({length: commentsAmount}, createComment)
+  };
+};
 
-const createImageDescription = () => ({
-  id: getRandomInteger(0, 26),
-  url: `photos/ + ${getRandomInteger(0, 26)} + .jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(15, 201),
-  comments: randomComment
-});
+const imagesDescriptions = Array.from({length: imagesAmount}, createImage);
 
-const imagesDescriptions = Array.from({length: 25}, createImageDescription);
-
+// eslint-disable-next-line no-console
 console.log(imagesDescriptions);
