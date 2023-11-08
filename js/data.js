@@ -1,5 +1,4 @@
-import {getRandomArrayElement} from './util.js';
-import {getRandomInteger} from './util.js';
+import {getRandomArrayElement, getRandomInteger} from './util.js';
 
 const NAMES = [
   'Иван',
@@ -68,7 +67,7 @@ const Comment = {
   MAX: 20
 };
 
-const ImagesAmount = 25;
+const IMAGES_AMOUNT = 25;
 
 const createComment = () => ({
   id: getRandomInteger(CommentId.MIN, CommentId.MAX),
@@ -89,6 +88,6 @@ const createImage = (_, index) => {
   };
 };
 
-const images = Array.from({length: ImagesAmount}, createImage);
+const images = Array.from({length: IMAGES_AMOUNT}, createImage);
 
 export {images};
