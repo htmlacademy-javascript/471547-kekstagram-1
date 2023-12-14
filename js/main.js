@@ -1,7 +1,4 @@
-import './data.js';
-import './util.js';
-
 import {images} from './data.js';
+import {renderPictures} from './miniatures.js';
 
-// eslint-disable-next-line no-console
-console.log(images);
+renderPictures(images);
