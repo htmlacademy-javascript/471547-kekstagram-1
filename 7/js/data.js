@@ -90,4 +90,4 @@ const createImage = (_, index) => {
 
 const images = Array.from({length: IMAGES_AMOUNT}, createImage);
 
-export {images,createImage};
+export {images};
