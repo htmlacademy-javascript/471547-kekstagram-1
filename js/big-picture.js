@@ -32,13 +32,13 @@ const renderComments = () => {
   }
 
   const fragment = document.createDocumentFragment();
-  comments.forEach ((comment) => {
-    const commentElement = getCommentElement(comment);
+  for (let i = 0; i < commentsPublished; i++) {
+    const commentElement = getCommentElement(comments[i]);
     commentList.innerHTML = '';
     fragment.append(commentElement);
-  });
-  commentList.append(fragment);
+  }
 
+  commentList.append(fragment);
   commentsCount.innerHTML = `${commentsPublished} из <span class="shown-comments-count">${comments.length}</span> комментариев`;
 };
 
