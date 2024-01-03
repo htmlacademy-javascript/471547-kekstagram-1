@@ -7,35 +7,39 @@ const cancelButton = document.querySelector('.big-picture__cancel');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.social__comments-loader');
 const commentsCount = document.querySelector('.social__comment-count');
-const shownCommentsCount = document.querySelector('.shown-comments-count');
 
 let commentsPublished = 0;
 let comments = [];
 
-const getCommentElement = ({avatar, name, message}) => {
+const getCommentElement = (comment) => {
   const commentElement = commentTemplate.cloneNode(true);
   const commentAvatar = commentElement.querySelector('.social__picture');
-  commentAvatar.src = avatar;
-  commentAvatar.alt = name;
-  commentElement.querySelector('.social__text').textContent = message;
+  commentAvatar.src = comment.avatar;
+  commentAvatar.alt = comment.name;
+  commentElement.querySelector('.social__text').textContent = comment.message;
+  return commentElement;
 };
 
 const renderComments = () => {
+
   commentsPublished += COMMENTS_PER_PORTION;
 
   if (commentsPublished >= comments.length) {
     commentsLoader.classList.add('hidden');
+    commentsPublished = comments.length;
   } else {
     commentsLoader.classList.remove('hidden');
   }
 
   const fragment = document.createDocumentFragment();
-  for (let i = 0; i < commentsPublished; i++) {
-    const commentElement = getCommentElement(comments[i]);
+  comments.forEach ((comment) => {
+    const commentElement = getCommentElement(comment);
+    commentList.innerHTML = '';
     fragment.append(commentElement);
-  }
+  });
   commentList.append(fragment);
-  commentsCount.textContent = `${commentsPublished} из ${comments.length} комментариев`;
+
+  commentsCount.innerHTML = `${commentsPublished} из <span class="shown-comments-count">${comments.length}</span> комментариев`;
 };
 
 const hideBigPicture = () => {
