@@ -6,7 +6,9 @@ const body = document.querySelector('body');
 const cancelButton = document.querySelector('.big-picture__cancel');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.social__comments-loader');
-const commentsCount = document.querySelector('.social__comment-count');
+
+const shownComments = document.querySelector('.shown-comments-count');
+const commentCount = document.querySelector('.comments-count');
 
 let commentsPublished = 0;
 let comments = [];
@@ -39,7 +41,7 @@ const renderComments = () => {
   }
 
   commentList.append(fragment);
-  commentsCount.innerHTML = `${commentsPublished} из <span class="shown-comments-count">${comments.length}</span> комментариев`;
+  shownComments.textContent = commentsPublished;
 };
 
 const hideBigPicture = () => {
@@ -74,7 +76,7 @@ const showBigPicture = (picture) => {
   document.addEventListener('keydown', onDocumentKeydown);
   renderPictureDetails(picture);
   comments = picture.comments;
-  commentsCount.textContent = picture.comments.length;
+  commentCount.textContent = picture.comments.length;
   renderComments();
 };
 
