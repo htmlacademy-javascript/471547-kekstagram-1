@@ -1,5 +1,5 @@
-import {resetScale} from './scale.js';
-import {resetEffects} from './effects.js';
+//import {resetScale} from './scale.js';
+//import {resetEffects} from './effects.js';
 
 const MAX_HASHTAG_COUNT = 5;
 const MIN_HASHTAG_LENGTH = 2;
@@ -29,8 +29,8 @@ const showModal = () => {
 
 const hideModal = () => {
   imageUploadForm.reset();
-  resetScale();
-  resetEffects();
+  //resetScale();
+  //resetEffects();
   pristine.reset();
   imageUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -91,6 +91,6 @@ const onFormSubmit = (evt) => {
   pristine.validate();
 };
 
-uploadFileField.addEventListener('input', onFileInputChange);
+uploadFileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
 imageUploadForm.addEventListener('submit', onFormSubmit);
