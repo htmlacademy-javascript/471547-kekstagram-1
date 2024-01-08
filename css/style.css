@@ -1408,3 +1408,16 @@ main {
 .hidden {
   display: none;
 }
+
+/**
+ * Сообщение об ошибке при работе с формой загрузки фото
+ */
+
+.img-upload__field-wrapper__error {
+  background-color: #e90000;
+  color: #000000;
+  font-size: 12px;
+  margin-top: -28px;
+  z-index: 1000;
+  position: relative;
+}
