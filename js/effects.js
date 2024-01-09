@@ -1,6 +1,6 @@
 const EFFECTS = [
   {
-    name: 'origin',
+    name: 'none',
     style: 'none',
     min: 0,
     max: 100,
@@ -62,11 +62,23 @@ const formElement = document.querySelector('.img-upload__form');
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
 const showSlider = () => {
-  formElement.classList.remove('hidden');
+  effectLevelElement.classList.remove('hidden');
 };
 
 const hideSlider = () => {
-  formElement.classList.add('hidden');
+  effectLevelElement.classList.add('hidden');
+};
+
+const createSlider = () => {
+  noUiSlider.create(sliderElement, {
+    range: {
+      min: DEFAULT_EFFECT.min,
+      max: DEFAULT_EFFECT.max
+    },
+    start: DEFAULT_EFFECT.max,
+    step: DEFAULT_EFFECT.step,
+    connect: 'lower',
+  });
 };
 
 const resetSlider = () => {
@@ -85,20 +97,11 @@ const resetSlider = () => {
   }
 };
 
-const onEffectsChange = (evt) => {
-  if (!evt.target.classList.contains('effects__radio')) {
-    return;
-  }
-  chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
-  imageElement.className = `effects__preview--${chosenEffect.name}`;
-  resetSlider();
-};
-
 const onSliderUpdate = () => {
-  imageElement.style.filter = 'none';
-  imageElement.className = '';
-  effectLevelElement.value = '';
   if (isDefault()) {
+    imageElement.className = '';
+    effectLevelElement.value = '';
+    imageElement.style.filter = 'none';
     return;
   }
   const sliderValue = sliderElement.noUiSlider.get();
@@ -107,25 +110,26 @@ const onSliderUpdate = () => {
   effectLevelElement.value = sliderValue;
 };
 
+const onEffectsChange = (evt) => {
+  if (!evt.target.classList.contains('effects__radio')) {
+    return;
+  }
+  chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
+  imageElement.className = `effects__preview--${chosenEffect.name}`;
+  resetSlider(chosenEffect);
+};
+
 const resetEffects = () => {
   chosenEffect = DEFAULT_EFFECT;
   chooseEffectValue.classList.add('hidden');
   resetSlider();
 };
 
-noUiSlider.create(sliderElement, {
-  range: {
-    min: DEFAULT_EFFECT.min,
-    max: DEFAULT_EFFECT.max
-  },
-  start: DEFAULT_EFFECT.max,
-  step: DEFAULT_EFFECT.step,
-  connect: 'lower',
-});
-resetSlider();
+const initEffects = () => {
+  createSlider();
+  formElement.addEventListener('change', onEffectsChange);
+  effectsElement.addEventListener('change', onEffectsChange);
+  sliderElement.noUiSlider.on('update', onSliderUpdate);
+};
 
-formElement.addEventListener('change', onEffectsChange);
-effectsElement.addEventListener('change', onEffectsChange);
-sliderElement.noUiSlider.on('update', onSliderUpdate);
-
-export {resetEffects};
+export {initEffects, resetEffects};
