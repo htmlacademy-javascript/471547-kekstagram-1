@@ -1,5 +1,5 @@
-//import {resetScale} from './scale.js';
-//import {resetEffects} from './effects.js';
+import {initScale, resetScale} from './scale.js';
+import {initEffects, resetEffects} from './effects.js';
 
 const Hashtag = {
   MAX_LENGTH: 20,
@@ -8,12 +8,7 @@ const Hashtag = {
 };
 
 const VALID_SYMBOLS = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
-const TAG_ERROR_TEXT_1 = 'Первым символом должен быть знак #';
-const TAG_ERROR_TEXT_2 = 'Минимальная длина хэштега — 2 символа';
-const TAG_ERROR_TEXT_3 = 'Максимальная длина хэштега — 20 символов';
-const TAG_ERROR_TEXT_4 = 'Использован неверный символ при написании хэштега';
-const TAG_ERROR_TEXT_5 = 'Допустимо использование не более 5 хэштегов';
-const TAG_ERROR_TEXT_6 = 'Такой хэштег уже использован';
+const TAG_ERROR_TEXT = {FIRST_SYMBOL_CHECK: 'Первым символом должен быть знак #', MIN_LENGTH_CHECK: 'Минимальная длина хэштега — 2 символа', MAX_LENGTH_CHECK: 'Максимальная длина хэштега — 20 символов', VALID_SYMBOLS_CHECK: 'Использован неверный символ при написании хэштега', HASHTAGS_COUNT_CHECK: 'Допустимо использование не более 5 хэштегов', UNIQUE_HASHTAG_CHECK: 'Такой хэштег уже использован'};
 
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -37,8 +32,8 @@ const showModal = () => {
 
 const hideModal = () => {
   imageUploadForm.reset();
-  //resetScale();
-  //resetEffects();
+  resetScale();
+  resetEffects();
   pristine.reset();
   imageUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -102,37 +97,49 @@ const hasUniqueHashtags = (tags) => {
 pristine.addValidator(
   hashtagField,
   checkFirstSymbolHashtag,
-  TAG_ERROR_TEXT_1
+  TAG_ERROR_TEXT.FIRST_SYMBOL_CHECK,
+  6,
+  true
 );
 
 pristine.addValidator(
   hashtagField,
   hasValidMinLength,
-  TAG_ERROR_TEXT_2
+  TAG_ERROR_TEXT.MIN_LENGTH_CHECK,
+  5,
+  true
 );
 
 pristine.addValidator(
   hashtagField,
   hasValidMaxLength,
-  TAG_ERROR_TEXT_3
+  TAG_ERROR_TEXT.MAX_LENGTH_CHECK,
+  4,
+  true
 );
 
 pristine.addValidator(
   hashtagField,
   hasValidSymbols,
-  TAG_ERROR_TEXT_4
+  TAG_ERROR_TEXT.VALID_SYMBOLS_CHECK,
+  3,
+  true
 );
 
 pristine.addValidator(
   hashtagField,
   checkHashtagsCount,
-  TAG_ERROR_TEXT_5
+  TAG_ERROR_TEXT.HASHTAGS_COUNT_CHECK,
+  2,
+  true
 );
 
 pristine.addValidator(
   hashtagField,
   hasUniqueHashtags,
-  TAG_ERROR_TEXT_6
+  TAG_ERROR_TEXT.UNIQUE_HASHTAG_CHECK,
+  1,
+  true
 );
 
 const onFormSubmit = (evt) => {
@@ -140,6 +147,13 @@ const onFormSubmit = (evt) => {
   pristine.validate();
 };
 
-uploadFileField.addEventListener('change', onFileInputChange);
-cancelButton.addEventListener('click', onCancelButtonClick);
-imageUploadForm.addEventListener('submit', onFormSubmit);
+
+const initImageEditor = () => {
+  initScale();
+  initEffects();
+  uploadFileField.addEventListener('change', onFileInputChange);
+  cancelButton.addEventListener('click', onCancelButtonClick);
+  imageUploadForm.addEventListener('submit', onFormSubmit);
+};
+
+export {initImageEditor};
