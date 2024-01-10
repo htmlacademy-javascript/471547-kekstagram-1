@@ -62,11 +62,11 @@ const formElement = document.querySelector('.img-upload__form');
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
 const showSlider = () => {
-  effectLevelElement.classList.remove('hidden');
+  chooseEffectValue.classList.remove('hidden');
 };
 
 const hideSlider = () => {
-  effectLevelElement.classList.add('hidden');
+  chooseEffectValue.classList.add('hidden');
 };
 
 const onSliderUpdate = () => {
@@ -123,6 +123,7 @@ const createSlider = () => {
     step: DEFAULT_EFFECT.step,
     connect: 'lower'
   });
+  hideSlider();
 };
 
 const initEffects = () => {
