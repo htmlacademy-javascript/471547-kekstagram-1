@@ -1,6 +1,6 @@
 import {images} from './data.js';
 import {renderGallery} from './gallery.js';
-import {initImageEditor} from'./form.js';
+import {initForm} from'./form.js';
 
 renderGallery(images);
-initImageEditor();
+initForm();

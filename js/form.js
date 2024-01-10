@@ -149,18 +149,18 @@ pristine.addValidator(
   true
 );
 
-const initForm = (evt) => {
+const onFormSubmit = (evt) => {
   evt.preventDefault();
   pristine.validate();
 };
 
 
-const initImageEditor = () => {
+const initForm = () => {
   initScale();
   initEffects();
   uploadFileField.addEventListener('change', onFileInputChange);
   cancelButton.addEventListener('click', onCancelButtonClick);
-  imageUploadForm.addEventListener('submit', initForm);
+  imageUploadForm.addEventListener('submit', onFormSubmit);
 };
 
-export {initImageEditor};
+export {initForm};
