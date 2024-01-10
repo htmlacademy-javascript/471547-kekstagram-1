@@ -91,7 +91,7 @@ const updateSlider = () => {
     step: chosenEffect.step,
     start: chosenEffect.max,
   });
-  if(isDefault()) {
+  if (isDefault ()) {
     hideSlider();
     return;
   }
