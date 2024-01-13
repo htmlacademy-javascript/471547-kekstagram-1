@@ -22,7 +22,7 @@ const showErrorMessage = () => {
     }
   };
 
-  const onOutBoxClick = (evt) => {
+  const onOutBlockClick = (evt) => {
     if (!errorContainer.querySelector('.error__inner').contains(evt.target)) {
       evt.preventDefault();
       onHideAlertClick();
@@ -33,12 +33,12 @@ const showErrorMessage = () => {
     errorContainer.remove();
     errorCloseButton.removeEventListener('click', onHideAlertClick);
     document.removeEventListener('keydown', onPopupEscKeydown);
-    document.removeEventListener('click', onOutBoxClick);
+    document.removeEventListener('click', onOutBlockClick);
   }
 
   errorCloseButton.addEventListener('click', onHideAlertClick);
   document.addEventListener('keydown', onPopupEscKeydown);
-  document.addEventListener('click', onOutBoxClick);
+  document.addEventListener('click', onOutBlockClick);
   setTimeout(() => {
     errorContainer.remove();
   }, ALERT_SHOW_TIME);
