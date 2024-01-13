@@ -1,5 +1,7 @@
 import {initScale, resetScale} from './scale.js';
 import {initEffects, resetEffects} from './effects.js';
+import {sendData} from './api.js';
+import {showAlert} from './util.js';
 
 const Hashtag = {
   MAX_LENGTH: 20,
@@ -24,6 +26,12 @@ const cancelButton = document.querySelector('#upload-cancel');
 const uploadFileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
+
+const SubmitButtonText = {
+  DEFAULT: 'Опубликовать',
+  SENDING: 'Публикую'
+};
 
 const pristine = new Pristine(imageUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -149,18 +157,38 @@ pristine.addValidator(
   true
 );
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
 };
 
-
-const initForm = () => {
-  initScale();
-  initEffects();
-  uploadFileField.addEventListener('change', onFileInputChange);
-  cancelButton.addEventListener('click', onCancelButtonClick);
-  imageUploadForm.addEventListener('submit', onFormSubmit);
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.DEFAULT;
 };
 
-export {initForm};
+const setOnFormSubmit = (onSuccess) => {
+  imageUploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .catch(
+          (err) => {
+            showAlert(err.message);
+          }
+        )
+        .finally(unblockSubmitButton);
+    }
+  });
+};
+
+initScale();
+initEffects();
+uploadFileField.addEventListener('change', onFileInputChange);
+cancelButton.addEventListener('click', onCancelButtonClick);
+
+export {hideModal, setOnFormSubmit};
