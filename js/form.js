@@ -1,7 +1,7 @@
 import {initScale, resetScale} from './scale.js';
 import {initEffects, resetEffects} from './effects.js';
 import {sendData} from './api.js';
-import {showAlert} from './util.js';
+import {showSuccessMessage, showErrorMessage} from './messages.js';
 
 const Hashtag = {
   MAX_LENGTH: 20,
@@ -167,28 +167,30 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.DEFAULT;
 };
 
-const setOnFormSubmit = (onSuccess) => {
-  imageUploadForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
 
-    const isValid = pristine.validate();
-    if (isValid) {
-      blockSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .catch(
-          (err) => {
-            showAlert(err.message);
-          }
-        )
-        .finally(unblockSubmitButton);
-    }
-  });
+  const isValid = pristine.validate();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(new FormData(evt.target))
+      .then(() => {
+        hideModal();
+        showSuccessMessage();
+      })
+      .catch(() => {
+        showErrorMessage();
+      })
+      .finally(unblockSubmitButton);
+  }
 };
 
-initScale();
-initEffects();
-uploadFileField.addEventListener('change', onFileInputChange);
-cancelButton.addEventListener('click', onCancelButtonClick);
+const initForm = () => {
+  initScale();
+  initEffects();
+  uploadFileField.addEventListener('change', onFileInputChange);
+  cancelButton.addEventListener('click', onCancelButtonClick);
+  imageUploadForm.addEventListener('submit', onFormSubmit);
+};
 
-export {hideModal, setOnFormSubmit};
+export {hideModal, initForm};
