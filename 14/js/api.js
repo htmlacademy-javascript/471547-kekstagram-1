@@ -15,16 +15,16 @@ const Method = {
   POST: 'POST',
 };
 
-const load = (route, OnFailText, method = Method.GET, body = null) =>
+const load = (route, errorMessage, method = Method.GET, body = null) =>
   fetch(`${BASE_URL}${route}`, {method, body})
     .then((response) => {
       if (!response.ok){
-        throw new Error('Не удалось отправить фото. Попробуйте еще раз');
+        throw new Error(errorMessage);
       }
       return response.json();
     })
     .catch(() => {
-      throw new Error(OnFailText);
+      throw new Error(errorMessage);
     });
 
 const getData = () => load(Route.GET, ErrorMessage.GET);
