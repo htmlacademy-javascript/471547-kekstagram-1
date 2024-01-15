@@ -1,5 +1,7 @@
 import {initScale, resetScale} from './scale.js';
 import {initEffects, resetEffects} from './effects.js';
+import {sendData} from './api.js';
+import {showSuccessMessage, showErrorMessage} from './messages.js';
 
 const Hashtag = {
   MAX_LENGTH: 20,
@@ -24,6 +26,12 @@ const cancelButton = document.querySelector('#upload-cancel');
 const uploadFileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
+
+const SubmitButtonText = {
+  DEFAULT: 'Опубликовать',
+  SENDING: 'Публикую'
+};
 
 const pristine = new Pristine(imageUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -149,11 +157,33 @@ pristine.addValidator(
   true
 );
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
 };
 
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.DEFAULT;
+};
+
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+
+  const isValid = pristine.validate();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(new FormData(evt.target))
+      .then(() => {
+        hideModal();
+        showSuccessMessage();
+      })
+      .catch(() => {
+        showErrorMessage();
+      })
+      .finally(unblockSubmitButton);
+  }
+};
 
 const initForm = () => {
   initScale();
@@ -163,4 +193,4 @@ const initForm = () => {
   imageUploadForm.addEventListener('submit', onFormSubmit);
 };
 
-export {initForm};
+export {hideModal, initForm};

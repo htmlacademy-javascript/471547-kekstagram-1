@@ -1,6 +1,12 @@
-import {images} from './data.js';
 import {renderGallery} from './gallery.js';
-import {initForm} from'./form.js';
+import {initForm} from './form.js';
+import {getData} from './api.js';
+import {showAlert} from './util.js';
 
-renderGallery(images);
-initForm();
+try {
+  const data = await getData();
+  initForm();
+  renderGallery(data);
+} catch (err) {
+  showAlert(err.message);
+}
