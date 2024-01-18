@@ -1,3 +1,7 @@
+import {debounce} from './util.js';
+
+const TIMEOUT_DELAY = 500;
+
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -17,4 +21,6 @@ const renderPictures = (pictures) => {
   picturesContainer.append(picturesFragment);
 };
 
-export {renderPictures};
+const debouncedRenderPictures = debounce(renderPictures, TIMEOUT_DELAY);
+
+export {renderPictures, debouncedRenderPictures};
