@@ -1,3 +1,5 @@
+import {debouncedRenderPictures} from './miniatures.js';
+
 const PICTURES_COUNT = 10;
 
 const filterElement = document.querySelector('.img-filters');
@@ -13,8 +15,8 @@ let pictures = [];
 
 const sortRandomly = () => Math.random() - 0.5;
 
-const sortByComments = (x, y) =>
-  y.comments.length - x.comments.length;
+const sortByComments = (pictureOne, pictureTwo) =>
+  pictureTwo.comments.length - pictureOne.comments.length;
 
 const getFilteredPictures = () => {
   switch (currentFilter) {
@@ -27,7 +29,7 @@ const getFilteredPictures = () => {
   }
 };
 
-const turnOnFilter = (callback) => {
+const setFiltersListener = () => {
 
   filterElement.addEventListener('click', (evt) => {
     if (!evt.target.classList.contains('img-filters__button')) {
@@ -48,14 +50,14 @@ const turnOnFilter = (callback) => {
 
     currentFilter = clickedButton.id;
 
-    callback(getFilteredPictures());
+    debouncedRenderPictures(getFilteredPictures());
   });
 };
 
-const showFilters = (loadedPictures, callback) => {
+const initFilters = (loadedPictures, callback) => {
   filterElement.classList.remove('img-filters--inactive');
   pictures = [...loadedPictures];
-  turnOnFilter(callback);
+  setFiltersListener(callback);
 };
 
-export {getFilteredPictures, showFilters};
+export {getFilteredPictures, initFilters};
