@@ -13,10 +13,8 @@ let pictures = [];
 
 const sortRandomly = () => Math.random() - 0.5;
 
-const sortByComments = (x, y) => {
-  const res = y.comments.length - x.comments.length;
-  return res;
-};
+const sortByComments = (x, y) =>
+  y.comments.length - x.comments.length;
 
 const getFilteredPictures = () => {
   switch (currentFilter) {

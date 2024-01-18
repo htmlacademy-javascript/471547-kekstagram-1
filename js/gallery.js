@@ -12,8 +12,7 @@ const onContainerClick = (evt) => {
   }
   evt.preventDefault();
   const picture = pictures.find(
-    (item) => item.id === +image.dataset.pictureId
-  );
+    (item) => item.id === +image.dataset.pictureId);
   showBigPicture(picture);
 };
 
