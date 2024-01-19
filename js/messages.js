@@ -1,4 +1,4 @@
-import {ALERT_SHOW_TIME, isEscapeKey} from './util.js';
+import {ALERT_DELAY, isEscapeKey} from './util.js';
 
 const errorContainerTemplate = document.querySelector('#error')
   .content
@@ -37,7 +37,7 @@ const showErrorMessage = () => {
   document.addEventListener('click', onDocumentClick);
   setTimeout(() => {
     errorElement.remove();
-  }, ALERT_SHOW_TIME);
+  }, ALERT_DELAY);
 };
 
 const showSuccessMessage = () => {
@@ -71,7 +71,7 @@ const showSuccessMessage = () => {
 
   setTimeout(() => {
     successContainer.remove();
-  }, ALERT_SHOW_TIME);
+  }, ALERT_DELAY);
 };
 
 export {showErrorMessage, showSuccessMessage};
