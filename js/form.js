@@ -2,6 +2,7 @@ import {initScale, resetScale} from './scale.js';
 import {initEffects, resetEffects} from './effects.js';
 import {sendData} from './api.js';
 import {showSuccessMessage, showErrorMessage} from './messages.js';
+import {loadPicture} from './upload-picture.js';
 
 const Hashtag = {
   MAX_LENGTH: 20,
@@ -72,6 +73,17 @@ const onCancelButtonClick = () => {
 
 const onFileInputChange = () => {
   showModal();
+};
+
+const onUploadPictureChange = (evt) => {
+  const loadState = loadPicture(evt);
+  if (!loadState) {
+    return;
+  }
+  imageUploadOverlay.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  cancelButton.addEventListener('click', onCancelButtonClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const getHashtagsFromString = (value) => {
@@ -190,7 +202,8 @@ const initForm = () => {
   initEffects();
   uploadFileField.addEventListener('change', onFileInputChange);
   cancelButton.addEventListener('click', onCancelButtonClick);
+  uploadFileField.addEventListener('change', onUploadPictureChange);
   imageUploadForm.addEventListener('submit', onFormSubmit);
 };
 
-export {hideModal, initForm};
+export {hideModal, initForm, showModal};

@@ -54,10 +54,10 @@ const setFiltersListener = () => {
   });
 };
 
-const initFilters = (loadedPictures, callback) => {
+const initFilters = (loadedPictures) => {
   filterElement.classList.remove('img-filters--inactive');
   pictures = [...loadedPictures];
-  setFiltersListener(callback);
+  setFiltersListener();
 };
 
 export {getFilteredPictures, initFilters};
