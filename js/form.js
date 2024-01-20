@@ -71,19 +71,9 @@ const onCancelButtonClick = () => {
   hideModal();
 };
 
-const onFileInputChange = () => {
+const onFileInputChange = (evt) => {
   showModal();
-};
-
-const onUploadPictureChange = (evt) => {
-  const loadState = loadPicture(evt);
-  if (!loadState) {
-    return;
-  }
-  imageUploadOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  cancelButton.addEventListener('click', onCancelButtonClick);
-  document.addEventListener('keydown', onDocumentKeydown);
+  loadPicture(evt);
 };
 
 const getHashtagsFromString = (value) => {
@@ -202,7 +192,6 @@ const initForm = () => {
   initEffects();
   uploadFileField.addEventListener('change', onFileInputChange);
   cancelButton.addEventListener('click', onCancelButtonClick);
-  uploadFileField.addEventListener('change', onUploadPictureChange);
   imageUploadForm.addEventListener('submit', onFormSubmit);
 };
 
