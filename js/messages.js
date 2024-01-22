@@ -3,6 +3,7 @@ import {ALERT_DELAY, isEscapeKey} from './util.js';
 const errorContainerTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
+
 const successContainerTemplate = document.querySelector('#success')
   .content
   .querySelector('.success');

@@ -84,23 +84,23 @@ const getHashtagsFromString = (value) => {
 };
 
 const checkFirstSymbolHashtag = (string) => {
-  getHashtagsFromString(string);
-  return string[0] === '#';
+  const hashtags = getHashtagsFromString(string);
+  return hashtags.every((tag) => tag[0] === '#');
 };
 
 const hasValidMinLength = (string) => {
-  getHashtagsFromString(string);
-  return string.length >= Hashtag.MIN_LENGTH;
+  const hashtags = getHashtagsFromString(string);
+  return hashtags.every((tag) => tag.length >= Hashtag.MIN_LENGTH);
 };
 
 const hasValidMaxLength = (string) => {
-  getHashtagsFromString(string);
-  return string.length <= Hashtag.MAX_LENGTH;
+  const hashtags = getHashtagsFromString(string);
+  return hashtags.every((tag) => tag.length <= Hashtag.MAX_LENGTH);
 };
 
 const hasValidSymbols = (string) => {
-  getHashtagsFromString(string);
-  return !VALID_SYMBOLS.test(string.slice(1));
+  const hashtags = getHashtagsFromString(string);
+  return hashtags.every((tag) => !VALID_SYMBOLS.test(tag.slice(1)));
 };
 
 const checkHashtagsCount = (tags) => getHashtagsFromString(tags).length <= Hashtag.MAX_COUNT;

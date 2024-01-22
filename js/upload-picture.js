@@ -1,4 +1,4 @@
-import { showModal } from './form.js';
+import {showModal} from './form.js';
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
