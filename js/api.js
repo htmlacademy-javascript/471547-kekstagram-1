@@ -1,9 +1,9 @@
+const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
+
 const ErrorMessage = {
   GET: 'Упс... Что-то пошло не так( Попробуйте обновить страницу',
   POST: 'Не удалось отправить данные. Попробуйте еще раз',
 };
-
-const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 
 const Route = {
   GET: '/data',

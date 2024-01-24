@@ -1,41 +1,38 @@
-const SCALE_STEP = 25;
-const MIN_SCALE = 25;
-const MAX_SCALE = 100;
-const DEFAULT_SCALE = 100;
+const Scale = {
+  STEP: 25,
+  MIN: 25,
+  MAX: 100,
+  DEFAULT: 100,
+};
 
-const smallerButtonElement = document.querySelector('.scale__control--smaller');
-const biggerButtonElement = document.querySelector('.scale__control--bigger');
+const scaleContainerElement = document.querySelector('.scale');
 const scaleInputElement = document.querySelector('.scale__control--value');
 const imageElement = document.querySelector('.img-upload__preview img');
 
 const scaleImage = (value) => {
-  imageElement.style.transform = `scale(${value / 100})`;
   scaleInputElement.value = `${value}%`;
+  imageElement.style.transform = `scale(${value / 100})`;
 };
 
-const onSmallerButtonClick = () => {
-  const currentValue = parseInt(scaleInputElement.value, 10);
-  let newValue = currentValue - SCALE_STEP;
-  if (newValue < MIN_SCALE) {
-    newValue = MIN_SCALE;
+const changeScale = (evt) => {
+  let currentValue = parseInt(scaleInputElement.value, 10);
+
+  if (evt.target.matches('.scale__control--smaller') && currentValue > Scale.MIN) {
+    currentValue = currentValue - Scale.STEP;
   }
-  scaleImage(newValue);
-};
-
-const onBiggerButtonClick = () => {
-  const currentValue = parseInt(scaleInputElement.value, 10);
-  let newValue = currentValue + SCALE_STEP;
-  if (newValue > MAX_SCALE) {
-    newValue = MAX_SCALE;
+  if (evt.target.matches('.scale__control--bigger') && currentValue < Scale.MAX) {
+    currentValue = currentValue + Scale.STEP;
   }
-  scaleImage(newValue);
+
+  scaleImage(currentValue);
 };
 
-const resetScale = () => scaleImage(DEFAULT_SCALE);
+const resetScale = () => scaleImage(Scale.DEFAULT);
 
 const initScale = () => {
-  smallerButtonElement.addEventListener('click', onSmallerButtonClick);
-  biggerButtonElement.addEventListener('click', onBiggerButtonClick);
+  scaleContainerElement.addEventListener('click', (evt) => {
+    changeScale(evt);
+  });
 };
 
 export {resetScale, initScale};

@@ -2,14 +2,14 @@ import {debounce} from './util.js';
 
 const TIMEOUT_DELAY = 500;
 
-const picturesContainer = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const picturesContainerElement = document.querySelector('.pictures');
+const pictureElementTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const renderPictures = (pictures) => {
-  picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
+  picturesContainerElement.querySelectorAll('.picture').forEach((element) => element.remove());
   const picturesFragment = document.createDocumentFragment();
   pictures.forEach(({url, description, likes, comments, id}) => {
-    const pictureElement = pictureTemplate.cloneNode(true);
+    const pictureElement = pictureElementTemplate.cloneNode(true);
     const image = pictureElement.querySelector('.picture__img');
     image.src = url;
     image.alt = description;
@@ -18,7 +18,7 @@ const renderPictures = (pictures) => {
     pictureElement.dataset.pictureId = id;
     picturesFragment.append(pictureElement);
   });
-  picturesContainer.append(picturesFragment);
+  picturesContainerElement.append(picturesFragment);
 };
 
 const debouncedRenderPictures = debounce(renderPictures, TIMEOUT_DELAY);
