@@ -10,7 +10,7 @@ const Hashtag = {
   MAX_COUNT: 5,
 };
 
-const VALID_SYMBOLS = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
+const VALID_SYMBOLS = /^[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
 
 const TagError = {
   FIRST_SYMBOL_CHECK: 'Первым символом должен быть знак #',
@@ -102,7 +102,7 @@ const hasValidMaxLength = (string) => {
 
 const hasValidSymbols = (string) => {
   const hashtags = getHashtagsFromString(string);
-  return hashtags.every((tag) => !VALID_SYMBOLS.test(tag.slice(1)));
+  return hashtags.every((tag) => VALID_SYMBOLS.test(tag.slice(1)));
 };
 
 const checkHashtagsCount = (tags) => getHashtagsFromString(tags).length <= Hashtag.MAX_COUNT;
