@@ -1,15 +1,15 @@
 import {ALERT_DELAY, isEscapeKey} from './util.js';
 
-const errorContainerTemplate = document.querySelector('#error')
+const errorElementTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 
-const successContainerTemplate = document.querySelector('#success')
+const successElementTemplate = document.querySelector('#success')
   .content
   .querySelector('.success');
 
 const showErrorMessage = () => {
-  const errorElement = errorContainerTemplate.cloneNode(true);
+  const errorElement = errorElementTemplate.cloneNode(true);
   const errorCloseButton = errorElement.querySelector('.error__button');
   document.body.append(errorElement);
   const onDocumentKeydown = (evt) => {
@@ -42,11 +42,11 @@ const showErrorMessage = () => {
 };
 
 const showSuccessMessage = () => {
-  const successContainer = successContainerTemplate.cloneNode(true);
-  document.body.append(successContainer);
-  const successCloseButton = successContainer.querySelector('.success__button');
+  const successContainerElement = successElementTemplate.cloneNode(true);
+  document.body.append(successContainerElement);
+  const successCloseButton = successContainerElement.querySelector('.success__button');
   const onDocumentClick = (evt) => {
-    if (!successContainer.querySelector('.success__inner').contains(evt.target)) {
+    if (!successContainerElement.querySelector('.success__inner').contains(evt.target)) {
       evt.preventDefault();
       closeSuccessMessage();
     }
@@ -60,7 +60,7 @@ const showSuccessMessage = () => {
   };
 
   function closeSuccessMessage() {
-    successContainer.remove();
+    successContainerElement.remove();
     successCloseButton.removeEventListener('click', closeSuccessMessage);
     document.removeEventListener('keydown', onDocumentKeydown);
     document.removeEventListener('click', onDocumentClick);
@@ -71,7 +71,7 @@ const showSuccessMessage = () => {
   document.addEventListener('click', onDocumentClick);
 
   setTimeout(() => {
-    successContainer.remove();
+    successContainerElement.remove();
   }, ALERT_DELAY);
 };
 

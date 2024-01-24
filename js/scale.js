@@ -1,8 +1,11 @@
-const MIN_SCALE = 25;
-const MAX_SCALE = 100;
-const DEFAULT_SCALE = 100;
+const Scale = {
+  STEP: 25,
+  MIN: 25,
+  MAX: 100,
+  DEFAULT: 100,
+};
 
-const scaleContainer = document.querySelector('.scale');
+const scaleContainerElement = document.querySelector('.scale');
 const scaleInputElement = document.querySelector('.scale__control--value');
 const imageElement = document.querySelector('.img-upload__preview img');
 
@@ -14,20 +17,20 @@ const scaleImage = (value) => {
 const changeScale = (evt) => {
   let currentValue = parseInt(scaleInputElement.value, 10);
 
-  if (evt.target.matches('.scale__control--smaller') && currentValue > MIN_SCALE) {
-    currentValue = currentValue - MIN_SCALE;
+  if (evt.target.matches('.scale__control--smaller') && currentValue > Scale.MIN) {
+    currentValue = currentValue - Scale.STEP;
   }
-  if (evt.target.matches('.scale__control--bigger') && currentValue < MAX_SCALE) {
-    currentValue = currentValue + MIN_SCALE;
+  if (evt.target.matches('.scale__control--bigger') && currentValue < Scale.MAX) {
+    currentValue = currentValue + Scale.STEP;
   }
 
   scaleImage(currentValue);
 };
 
-const resetScale = () => scaleImage(DEFAULT_SCALE);
+const resetScale = () => scaleImage(Scale.DEFAULT);
 
 const initScale = () => {
-  scaleContainer.addEventListener('click', (evt) => {
+  scaleContainerElement.addEventListener('click', (evt) => {
     changeScale(evt);
   });
 };

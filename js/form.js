@@ -7,17 +7,23 @@ import {loadPicture} from './upload-picture.js';
 const Hashtag = {
   MAX_LENGTH: 20,
   MIN_LENGTH: 2,
-  MAX_COUNT: 5
+  MAX_COUNT: 5,
 };
 
 const VALID_SYMBOLS = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
+
 const TagError = {
   FIRST_SYMBOL_CHECK: 'Первым символом должен быть знак #',
   MIN_LENGTH_CHECK: 'Минимальная длина хэштега — 2 символа',
   MAX_LENGTH_CHECK: 'Максимальная длина хэштега — 20 символов',
   VALID_SYMBOLS_CHECK: 'Использован неверный символ при написании хэштега',
   HASHTAGS_COUNT_CHECK: 'Допустимо использование не более 5 хэштегов',
-  UNIQUE_HASHTAG_CHECK: 'Такой хэштег уже использован'
+  UNIQUE_HASHTAG_CHECK: 'Такой хэштег уже использован',
+};
+
+const SubmitButtonText = {
+  DEFAULT: 'Опубликовать',
+  SENDING: 'Публикую',
 };
 
 const imageUploadForm = document.querySelector('.img-upload__form');
@@ -28,11 +34,6 @@ const uploadFileField = document.querySelector('#upload-file');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 const submitButton = document.querySelector('.img-upload__submit');
-
-const SubmitButtonText = {
-  DEFAULT: 'Опубликовать',
-  SENDING: 'Публикую'
-};
 
 const pristine = new Pristine(imageUploadForm, {
   classTo: 'img-upload__field-wrapper',

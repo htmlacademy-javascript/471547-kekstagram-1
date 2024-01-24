@@ -2,13 +2,13 @@ import {debouncedRenderPictures} from './miniatures.js';
 
 const PICTURES_COUNT = 10;
 
-const filterElement = document.querySelector('.img-filters');
-
 const Filter = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed',
 };
+
+const filterElement = document.querySelector('.img-filters');
 
 let currentFilter = Filter.DEFAULT;
 let pictures = [];
