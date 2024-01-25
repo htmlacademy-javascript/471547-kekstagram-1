@@ -55,18 +55,17 @@ let chosenEffect = DEFAULT_EFFECT;
 const imageElement = document.querySelector('.img-upload__preview img');
 const effectsElement = document.querySelector('.effects');
 const sliderElement = document.querySelector('.effect-level__slider');
-const chooseEffectValue = document.querySelector('.img-upload__effect-level');
+const chooseEffectValueElement = document.querySelector('.img-upload__effect-level');
 const effectLevelElement = document.querySelector('.effect-level__value');
-const formElement = document.querySelector('.img-upload__form');
 
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
 const showSlider = () => {
-  chooseEffectValue.classList.remove('hidden');
+  chooseEffectValueElement.classList.remove('hidden');
 };
 
 const hideSlider = () => {
-  chooseEffectValue.classList.add('hidden');
+  chooseEffectValueElement.classList.add('hidden');
 };
 
 const onSliderUpdate = () => {
@@ -109,7 +108,7 @@ const onEffectsChange = (evt) => {
 
 const resetEffects = () => {
   chosenEffect = DEFAULT_EFFECT;
-  chooseEffectValue.classList.add('hidden');
+  chooseEffectValueElement.classList.add('hidden');
   updateSlider();
 };
 
@@ -128,7 +127,6 @@ const createSlider = () => {
 
 const initEffects = () => {
   createSlider();
-  formElement.addEventListener('change', onEffectsChange);
   effectsElement.addEventListener('change', onEffectsChange);
   sliderElement.noUiSlider.on('update', onSliderUpdate);
 };
