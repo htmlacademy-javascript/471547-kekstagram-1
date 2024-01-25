@@ -3,7 +3,7 @@ import {showModal} from './form.js';
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const picturePreviewElement = document.querySelector('.img-upload__preview img');
-const effectsPreviewElement = document.querySelectorAll('.effects__preview');
+const effectsPreviewElements = document.querySelectorAll('.effects__preview');
 
 const isValidType = (file) => {
   const fileName = file.name.toLowerCase();
@@ -15,7 +15,7 @@ const loadPicture = (evt) => {
 
   if (file && isValidType(file)) {
     picturePreviewElement.src = URL.createObjectURL(file);
-    effectsPreviewElement.forEach((preview) => {
+    effectsPreviewElements.forEach((preview) => {
       preview.style.backgroundImage = `url('${picturePreviewElement.src}')`;
       showModal();
     });

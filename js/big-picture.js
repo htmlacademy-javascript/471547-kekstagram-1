@@ -4,7 +4,7 @@ const bigPictureElement = document.querySelector('.big-picture');
 const commentListElement = document.querySelector('.social__comments');
 const bodyElement = document.querySelector('body');
 const cancelButtonElement = document.querySelector('.big-picture__cancel');
-const commentTemplateElement = document.querySelector('#comment').content.querySelector('.social__comment');
+const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const commentsLoaderElement = document.querySelector('.social__comments-loader');
 
 const shownCommentsElement = document.querySelector('.shown-comments-count');
@@ -14,7 +14,7 @@ let commentsPublished = 0;
 let comments = [];
 
 const getCommentElement = (comment) => {
-  const commentElement = commentTemplateElement.cloneNode(true);
+  const commentElement = commentTemplate.cloneNode(true);
   const commentAvatarElement = commentElement.querySelector('.social__picture');
   commentAvatarElement.src = comment.avatar;
   commentAvatarElement.alt = comment.name;
