@@ -10,7 +10,7 @@ const successElementTemplate = document.querySelector('#success')
 
 const showErrorMessage = () => {
   const errorElement = errorElementTemplate.cloneNode(true);
-  const errorCloseButton = errorElement.querySelector('.error__button');
+  const errorCloseButtonElement = errorElement.querySelector('.error__button');
   document.body.append(errorElement);
   const onDocumentKeydown = (evt) => {
     if (isEscapeKey(evt)) {
@@ -28,12 +28,16 @@ const showErrorMessage = () => {
 
   function closeErrorMessage() {
     errorElement.remove();
-    errorCloseButton.removeEventListener('click', closeErrorMessage);
+    errorCloseButtonElement.removeEventListener('click', closeErrorMessage);
     document.removeEventListener('keydown', onDocumentKeydown);
     document.removeEventListener('click', onDocumentClick);
   }
 
-  errorCloseButton.addEventListener('click', closeErrorMessage);
+  const onErrorCloseButtonClick = () => {
+    closeErrorMessage();
+  };
+
+  errorCloseButtonElement.addEventListener('click', onErrorCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
   setTimeout(() => {
@@ -44,7 +48,7 @@ const showErrorMessage = () => {
 const showSuccessMessage = () => {
   const successContainerElement = successElementTemplate.cloneNode(true);
   document.body.append(successContainerElement);
-  const successCloseButton = successContainerElement.querySelector('.success__button');
+  const successCloseButtonElement = successContainerElement.querySelector('.success__button');
   const onDocumentClick = (evt) => {
     if (!successContainerElement.querySelector('.success__inner').contains(evt.target)) {
       evt.preventDefault();
@@ -61,12 +65,16 @@ const showSuccessMessage = () => {
 
   function closeSuccessMessage() {
     successContainerElement.remove();
-    successCloseButton.removeEventListener('click', closeSuccessMessage);
+    successCloseButtonElement.removeEventListener('click', closeSuccessMessage);
     document.removeEventListener('keydown', onDocumentKeydown);
     document.removeEventListener('click', onDocumentClick);
   }
 
-  successCloseButton.addEventListener('click', closeSuccessMessage);
+  const onSuccesCloseButtonClick = () => {
+    closeSuccessMessage();
+  };
+
+  successCloseButtonElement.addEventListener('click', onSuccesCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
 

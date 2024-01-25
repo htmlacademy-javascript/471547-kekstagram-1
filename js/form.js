@@ -26,40 +26,40 @@ const SubmitButtonText = {
   SENDING: 'Публикую',
 };
 
-const imageUploadForm = document.querySelector('.img-upload__form');
-const imageUploadOverlay = document.querySelector('.img-upload__overlay');
-const body = document.querySelector('body');
-const cancelButton = document.querySelector('#upload-cancel');
-const uploadFileField = document.querySelector('#upload-file');
-const hashtagField = document.querySelector('.text__hashtags');
-const commentField = document.querySelector('.text__description');
-const submitButton = document.querySelector('.img-upload__submit');
+const imageUploadFormElement = document.querySelector('.img-upload__form');
+const imageUploadOverlayElement = document.querySelector('.img-upload__overlay');
+const bodyElement = document.querySelector('body');
+const cancelButtonElement = document.querySelector('#upload-cancel');
+const uploadFileFieldElement = document.querySelector('#upload-file');
+const hashtagFieldElement = document.querySelector('.text__hashtags');
+const commentFieldElement = document.querySelector('.text__description');
+const submitButtonElement = document.querySelector('.img-upload__submit');
 
-const pristine = new Pristine(imageUploadForm, {
+const pristine = new Pristine(imageUploadFormElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper__error',
 });
 
 const showModal = () => {
-  imageUploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
+  imageUploadOverlayElement.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const hideModal = () => {
-  imageUploadForm.reset();
+  imageUploadFormElement.reset();
   resetScale();
   resetEffects();
   pristine.reset();
-  imageUploadOverlay.classList.add('hidden');
-  body.classList.remove('modal-open');
+  imageUploadOverlayElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 const isTextFieldFocused = () =>
-  document.activeElement === hashtagField ||
-  document.activeElement === commentField;
+  document.activeElement === hashtagFieldElement ||
+  document.activeElement === commentFieldElement;
 
 function onDocumentKeydown (evt) {
   const errorCloseButtonElement = document.querySelector('.error__button');
@@ -113,7 +113,7 @@ const hasUniqueHashtags = (tags) => {
 };
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   checkFirstSymbolHashtag,
   TagError.FIRST_SYMBOL_CHECK,
   6,
@@ -121,7 +121,7 @@ pristine.addValidator(
 );
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   hasValidMinLength,
   TagError.MIN_LENGTH_CHECK,
   5,
@@ -129,7 +129,7 @@ pristine.addValidator(
 );
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   hasValidMaxLength,
   TagError.MAX_LENGTH_CHECK,
   4,
@@ -137,7 +137,7 @@ pristine.addValidator(
 );
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   hasValidSymbols,
   TagError.VALID_SYMBOLS_CHECK,
   3,
@@ -145,7 +145,7 @@ pristine.addValidator(
 );
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   checkHashtagsCount,
   TagError.HASHTAGS_COUNT_CHECK,
   2,
@@ -153,7 +153,7 @@ pristine.addValidator(
 );
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   hasUniqueHashtags,
   TagError.UNIQUE_HASHTAG_CHECK,
   1,
@@ -161,13 +161,13 @@ pristine.addValidator(
 );
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = SubmitButtonText.SENDING;
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.DEFAULT;
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = SubmitButtonText.DEFAULT;
 };
 
 const onFormSubmit = (evt) => {
@@ -191,9 +191,9 @@ const onFormSubmit = (evt) => {
 const initForm = () => {
   initScale();
   initEffects();
-  uploadFileField.addEventListener('change', onFileInputChange);
-  cancelButton.addEventListener('click', onCancelButtonClick);
-  imageUploadForm.addEventListener('submit', onFormSubmit);
+  uploadFileFieldElement.addEventListener('change', onFileInputChange);
+  cancelButtonElement.addEventListener('click', onCancelButtonClick);
+  imageUploadFormElement.addEventListener('submit', onFormSubmit);
 };
 
 export {hideModal, initForm, showModal};
