@@ -33,8 +33,7 @@ const showErrorMessage = () => {
     document.removeEventListener('click', onDocumentClick);
   }
 
-  const onErrorCloseButtonClick = (evt) => {
-    evt.preventDefault();
+  const onErrorCloseButtonClick = () => {
     closeErrorMessage();
   };
 
@@ -71,8 +70,7 @@ const showSuccessMessage = () => {
     document.removeEventListener('click', onDocumentClick);
   }
 
-  const onSuccesCloseButtonClick = (evt) => {
-    evt.preventDefault();
+  const onSuccesCloseButtonClick = () => {
     closeSuccessMessage();
   };
 
